@@ -1,7 +1,9 @@
 import express from 'express';
 import OpenAIApi from 'openai';
+import openaiConfig from '../config.js'
+
 const router = express.Router();
-const openai = new OpenAIApi({ apiKey: "apiKey" });
+const openai = new OpenAIApi(openaiConfig);
 
 router.post('/', async (req, res) => {
     try {
@@ -23,7 +25,7 @@ router.post('/', async (req, res) => {
             ],
           });
        res.json({ reply: response.choices[0].message.content });
-        res.json({ reply: req.body });
+
     } catch (e) {
         res.status(400).json({ error: `Invalid request, ${e}` });
     }
